@@ -1,3 +1,6 @@
+import { useDispatch,useSelector } from 'react-redux';
+import Clearcard from './Clearcard';
+import { setshowClearcard } from '../features/chatSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFeather } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -5,14 +8,23 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 
 const Navbar = () => {
+
+    const dispatch = useDispatch();
+    const {showclearcard} = useSelector((state) => state.chat);
+
+    const confirmationAlert = () =>{
+        dispatch(setshowClearcard(true));
+    }
+
   return (
-    <nav className="bg-zinc-950 flex items-center justify-between md:px-12 py-4 shadow-stone-900 shadow-inner">
+    <>
+    <nav className="fixed top-0 w-full bg-zinc-950 flex items-center justify-between px-5 md:px-12 py-4 shadow-stone-900 shadow-inner z-50">
         <a href="#" className="flex items-center">
             <FontAwesomeIcon icon={faFeather} className="bg-white text-black p-2 rounded-full mr-2 "/>
             <p className="text-sm uppercase font-bold">finchat</p>
         </a>
         <div className="flex items-center">
-            <button onClick={()=>window.location.reload()} className="flex items-center bg-white text-black p-3 md:px-5 md:py-2 rounded-sm font-semibold text-xs mr-4 hover:bg-slate-300 cursor-pointer">
+            <button onClick={()=>confirmationAlert()} className="flex items-center bg-white text-black p-3 md:px-5 md:py-2 rounded-sm font-semibold text-xs mr-4 hover:bg-slate-300 cursor-pointer">
                 <FontAwesomeIcon icon={faArrowRightToBracket} className="md:mr-2"/>
                 <span className="hidden md:block">NewChat</span>
             </button>
@@ -22,6 +34,8 @@ const Navbar = () => {
             </a>
         </div>
     </nav>
+        {showclearcard?<Clearcard/>:null}
+    </>
   )
 }
 
