@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import cryptoJs from "crypto-js";
 import Image from "next/image";
 import Card from "./Card";
 import PromptList from './PromptList';
@@ -13,10 +14,13 @@ import gemini from '../assets/gemini.png';
 import loader from '../assets/loader.svg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faBomb } from "@fortawesome/free-solid-svg-icons";
 
 const ChatInterface = () => {
 
-  const apiKey = "AIzaSyB-usxtwlXnbRvV0lspskeBjnuHcKzBP3o";
+  // const enckey = "localStore";
+  const [error,setError] = useState(false);
+  const apiKey = "";
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const model = genAI.getGenerativeModel({
@@ -34,6 +38,51 @@ const ChatInterface = () => {
 
   const dispatch = useDispatch();
   const { showcard, query, typing, messages, showclearcard, showprompt } = useSelector((state) => state.chat);
+  const chatRef = useRef(null);
+
+  const setMessages=(storedMessages)=>{
+    storedMessages.forEach((data)=>{
+      dispatch(setshowCard(false));
+      dispatch(setshowPrompt(false));
+      dispatch(addMessage(data))
+    })
+  }
+
+   useEffect(() => {
+    // const encryptedMessages = localStorage.getItem("messages");
+    // if (encryptedMessages) {
+    //   const decryptedData = cryptoJs.AES.decrypt(encryptedMessages, enckey).toString(cryptoJs.enc.Utf8);
+    //   const getdata = JSON.parse(decryptedData);
+    //   getdata.forEach(message => {
+    //     dispatch(addMessage(message));
+    //   });
+    // }
+    const retrievedData = localStorage.getItem('messages');
+    if (retrievedData) {
+      try {
+        const setData = JSON.parse(retrievedData);
+        return()=>setMessages(setData);
+      } catch (error) {
+        console.error("Failed to parse messages from localStorage:", error);
+      }
+    }
+
+  }, []);
+
+  useEffect(() => {
+    // if (messages.length > 0) {
+    // const encryptedMessages = cryptoJs.AES.encrypt(JSON.stringify(messages), enckey).toString();
+    //   localStorage.setItem("messages", encryptedMessages);
+    // }
+    if (messages.length > 0) {
+      try {
+        const getData = JSON.stringify(messages);
+        localStorage.setItem('messages', getData);
+      } catch (error) {
+        console.error("Failed to save messages to localStorage:", error);
+      }
+    }
+  }, [messages]);
 
   const handlePromptQuery = (promptQuery) => {
     dispatch(setQuery(promptQuery));
@@ -41,13 +90,14 @@ const ChatInterface = () => {
   }
 
   const handleUserQuery = (userQuery) => {
+    setError(false);
     if (userQuery !== "") {
       dispatch(setshowCard(false));
-      dispatch(setshowPrompt(false))
+      dispatch(setshowPrompt(false));
       const newMessage = {
         message: userQuery,
         sender: "You",
-        image: user,
+        image:user,
       };
 
       dispatch(addMessage(newMessage));
@@ -68,12 +118,13 @@ const ChatInterface = () => {
       dispatch(addMessage({
         message: response,
         sender: 'FINCHAT AI',
-        image: gemini,
+        image:gemini,
       }));
       dispatch(setTyping(false));
     } catch (error) {
       console.error("Error processing bot response:", error);
       dispatch(setTyping(false));
+      setError(true);
     }
   }
 
@@ -83,7 +134,6 @@ const ChatInterface = () => {
     }
   }, [messages]);
 
-  const chatRef = useRef(null);
 
   return (
     <section className={showclearcard ? `transition-all duration-70 blur-lg` : null}>
@@ -106,7 +156,12 @@ const ChatInterface = () => {
             ))}
           </div>
           <div className='fixed bottom-10 mx-auto w-full lg:w-[55%]'>
-            
+            {error?
+              <div className="flex">
+                <FontAwesomeIcon icon={faBomb} className="text-red-600 mr-2"/>
+                <p className="text-red-600 text-sm capitalize font-semibold mb-3">Things are little unstable here, come back later...</p>
+              </div>
+            :null}
             {typing ? (
               <div className='flex items-start mb-3'>
                 <Image src={loader} alt='' width={20} />

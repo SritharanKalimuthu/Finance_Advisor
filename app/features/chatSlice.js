@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import gemini from '../assets/gemini.png';
 
 const initialState = {
   showcard: true,

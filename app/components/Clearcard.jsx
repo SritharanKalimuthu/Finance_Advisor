@@ -5,14 +5,14 @@ import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 const Clearcard = () => {
 
-    const dispatch = useDispatch();
-    
+    const dispatch = useDispatch();    
 
     const abortNewchat = () =>{
         dispatch(setshowClearcard(false))
     }
 
     const createNewChat = ()=>{
+        localStorage.removeItem('messages');
         dispatch(clearMessage());
         dispatch(resetQuery());
         dispatch(setTyping(false));
