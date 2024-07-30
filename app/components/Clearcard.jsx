@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setshowCard, setTyping, clearMessage, resetQuery,setshowPrompt, setshowClearcard } from '../features/chatSlice';
+import { setshowCard, setTyping, setError, clearMessage, resetQuery,setshowPrompt, setshowClearcard } from '../features/chatSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,6 +16,7 @@ const Clearcard = () => {
         dispatch(clearMessage());
         dispatch(resetQuery());
         dispatch(setTyping(false));
+        dispatch(setError(false));
         dispatch(setshowCard(true));
         dispatch(setshowPrompt(true));
         dispatch(setshowClearcard(false))

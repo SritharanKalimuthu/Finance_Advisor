@@ -8,7 +8,7 @@ import Card from "./Card";
 import PromptList from './PromptList';
 import ChatMessage from "../api/chat/[id]";
 import { useDispatch, useSelector } from 'react-redux';
-import { setshowCard, setQuery, setTyping, addMessage, resetQuery, setshowPrompt } from '../features/chatSlice';
+import { setshowCard, setQuery, setTyping, setError, addMessage, resetQuery, setshowPrompt } from '../features/chatSlice';
 import user from '../assets/user.png';
 import gemini from '../assets/gemini.png';
 import loader from '../assets/loader.svg';
@@ -19,8 +19,7 @@ import { faBomb } from "@fortawesome/free-solid-svg-icons";
 const ChatInterface = () => {
 
   // const enckey = "localStore";
-  const [error,setError] = useState(false);
-  const apiKey = "";
+  const apiKey = process.env.REACT_APP_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const model = genAI.getGenerativeModel({
@@ -37,7 +36,7 @@ const ChatInterface = () => {
   };
 
   const dispatch = useDispatch();
-  const { showcard, query, typing, messages, showclearcard, showprompt } = useSelector((state) => state.chat);
+  const { showcard, query, typing, error, messages, showclearcard, showprompt } = useSelector((state) => state.chat);
   const chatRef = useRef(null);
 
   const setMessages=(storedMessages)=>{
@@ -90,7 +89,7 @@ const ChatInterface = () => {
   }
 
   const handleUserQuery = (userQuery) => {
-    setError(false);
+    dispatch(setError(false))
     if (userQuery !== "") {
       dispatch(setshowCard(false));
       dispatch(setshowPrompt(false));
@@ -124,7 +123,7 @@ const ChatInterface = () => {
     } catch (error) {
       console.error("Error processing bot response:", error);
       dispatch(setTyping(false));
-      setError(true);
+      dispatch(setError(true));
     }
   }
 

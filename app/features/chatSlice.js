@@ -4,6 +4,7 @@ const initialState = {
   showcard: true,
   query: '',
   typing: false,
+  error:false,
   messages: [],
   showprompt:true,
   showclearcard:false,
@@ -21,6 +22,9 @@ const chatSlice = createSlice({
     },
     setTyping: (state, action) => {
       state.typing = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
     },
     addMessage: (state, action) => {
       state.messages.push(action.payload);
@@ -40,6 +44,6 @@ const chatSlice = createSlice({
   },
 });
 
-export const { setshowCard, setQuery, setTyping, addMessage, clearMessage, resetQuery, setshowPrompt, setshowClearcard } = chatSlice.actions;
+export const { setshowCard, setQuery, setTyping, setError, addMessage, clearMessage, resetQuery, setshowPrompt, setshowClearcard } = chatSlice.actions;
 
 export default chatSlice.reducer;
