@@ -19,7 +19,7 @@ import { faBomb } from "@fortawesome/free-solid-svg-icons";
 const ChatInterface = () => {
 
   // const enckey = "localStore";
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const model = genAI.getGenerativeModel({
