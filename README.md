@@ -4,7 +4,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -168,17 +167,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/yourusername/finchat-ai.svg?style=for-the-badge
-[contributors-url]: https://github.com/yourusername/finchat-ai/graphs/contributors
+[contributors-url]: https://github.com/SritharanKalimuthu/Finance_Advisor/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/yourusername/finchat-ai.svg?style=for-the-badge
-[forks-url]: https://github.com/yourusername/finchat-ai/network/members
+[forks-url]: https://github.com/SritharanKalimuthu/Finance_Advisor/finchat-ai/network/members
 [stars-shield]: https://img.shields.io/github/stars/yourusername/finchat-ai.svg?style=for-the-badge
-[stars-url]: https://github.com/yourusername/finchat-ai/stargazers
+[stars-url]: https://github.com/SritharanKalimuthu/Finance_Advisor/stargazers
 [issues-shield]: https://img.shields.io/github/issues/yourusername/finchat-ai.svg?style=for-the-badge
-[issues-url]: https://github.com/yourusername/finchat-ai/issues
+[issues-url]: https://github.com/SritharanKalimuthu/Finance_Advisor/issues
 [license-shield]: https://img.shields.io/github/license/yourusername/finchat-ai.svg?style=for-the-badge
-[license-url]: https://github.com/yourusername/finchat-ai/blob/master/LICENSE
+[license-url]: https://github.com/SritharanKalimuthu/Finance_Advisor/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/yourlinkedinprofile
+[linkedin-url]: https://www.linkedin.com/in/sritharan-k/
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
