@@ -91,7 +91,7 @@ To get a local copy up and running follow these simple example steps.
 1. Clone the repository
    ```sh
    git clone https://github.com/SritharanKalimuthu/Finance_Advisor
-   cd finchat-ai
+   cd Finance_Advisor
    ```
 
 2. Install NPM packages
