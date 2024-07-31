@@ -11,7 +11,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/SritharanKalimuthu/Finance_Advisor">
-    <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Logo" width="0" height="100">
+    <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Logo" width="120" height="80">
   </a>
 
   <h3 align="center">FinChat AI</h3>
@@ -179,7 +179,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [license-url]: https://github.com/yourusername/finchat-ai/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/yourlinkedinprofile
-[product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
@@ -188,4 +187,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [Redux-url]: https://redux.js.org/
 [Tailwind CSS]: https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white
 [Tailwind-url]: https://tailwindcss.com/
-```
