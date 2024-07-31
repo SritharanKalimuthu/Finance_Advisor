@@ -66,7 +66,7 @@ const ChatInterface = () => {
       }
     }
 
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // if (messages.length > 0) {
