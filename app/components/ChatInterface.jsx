@@ -18,7 +18,8 @@ import { faBomb } from "@fortawesome/free-solid-svg-icons";
 
 const ChatInterface = () => {
 
-  // const enckey = "secret123";
+  //const encKey = "secret123";
+  // API key and model configuration
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -39,15 +40,17 @@ const ChatInterface = () => {
   const { showcard, query, typing, error, messages, showclearcard, showprompt } = useSelector((state) => state.chat);
   const chatRef = useRef(null);
 
-  const setMessages=(storedMessages)=>{
-    storedMessages.forEach((data)=>{
+  // Function to set messages from local storage
+  const setMessages = (storedMessages) => {
+    storedMessages.forEach((data) => {
       dispatch(setshowCard(false));
       dispatch(setshowPrompt(false));
-      dispatch(addMessage(data))
-    })
-  }
+      dispatch(addMessage(data));
+    });
+  };
 
-   useEffect(() => {
+  // Load messages from local storage on component mount
+  useEffect(() => {
     // const encryptedMessages = localStorage.getItem("messages");
     // if (encryptedMessages) {
     //   const decryptedData = cryptoJs.AES.decrypt(encryptedMessages, enckey).toString(cryptoJs.enc.Utf8);
@@ -60,14 +63,14 @@ const ChatInterface = () => {
     if (retrievedData) {
       try {
         const setData = JSON.parse(retrievedData);
-        return()=>setMessages(setData);
+        return () => setMessages(setData);
       } catch (error) {
         console.error("Failed to parse messages from localStorage:", error);
       }
     }
-
   }, []);
 
+  // Save messages to local storage when `messages` state changes
   useEffect(() => {
     // if (messages.length > 0) {
     // const encryptedMessages = cryptoJs.AES.encrypt(JSON.stringify(messages), enckey).toString();
@@ -83,20 +86,22 @@ const ChatInterface = () => {
     }
   }, [messages]);
 
+  // Handle prompt query selection
   const handlePromptQuery = (promptQuery) => {
     dispatch(setQuery(promptQuery));
     handleUserQuery(promptQuery);
-  }
+  };
 
+  // Handle user query input and dispatch messages
   const handleUserQuery = (userQuery) => {
-    dispatch(setError(false))
+    dispatch(setError(false));
     if (userQuery !== "") {
       dispatch(setshowCard(false));
       dispatch(setshowPrompt(false));
       const newMessage = {
         message: userQuery,
         sender: "You",
-        image:user,
+        image: user,
       };
 
       dispatch(addMessage(newMessage));
@@ -105,6 +110,7 @@ const ChatInterface = () => {
     }
   };
 
+  // Process bot response using the Google Generative AI model
   async function processBotResponse(userQuery) {
     try {
       const chatSession = model.startChat({
@@ -117,7 +123,7 @@ const ChatInterface = () => {
       dispatch(addMessage({
         message: response,
         sender: 'FINCHAT AI',
-        image:gemini,
+        image: gemini,
       }));
       dispatch(setTyping(false));
     } catch (error) {
@@ -127,12 +133,12 @@ const ChatInterface = () => {
     }
   }
 
+  // Scroll chat to the latest message
   useEffect(() => {
     if (chatRef.current) {
       chatRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, [messages]);
-
 
   return (
     <section className={showclearcard ? `transition-all duration-70 blur-lg` : null}>
@@ -140,10 +146,10 @@ const ChatInterface = () => {
         <div className="lg:w-1/2">
           <div className="pb-32" ref={chatRef}>
             {showcard ? <Card /> : null}
-            {showprompt?
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+            {showprompt ?
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                 {PromptList.map((prompts, i) => (
-                  <button key={i} className="text-start bg-black p-4 rounded-md" onClick={() =>handlePromptQuery(prompts.prompt)}>
+                  <button key={i} className="text-start bg-black p-4 rounded-md" onClick={() => handlePromptQuery(prompts.prompt)}>
                     <h1 className="text-stone-400 uppercase text-xs font-semibold">{prompts.topic}</h1>
                     <p className="text-sm text-gray-400 mt-2 leading-6 font-medium">{prompts.prompt}</p>
                   </button>
@@ -155,12 +161,12 @@ const ChatInterface = () => {
             ))}
           </div>
           <div className='fixed bottom-10 mx-auto w-full lg:w-[55%]'>
-            {error?
+            {error ?
               <div className="flex">
-                <FontAwesomeIcon icon={faBomb} className="text-red-600 mr-2"/>
+                <FontAwesomeIcon icon={faBomb} className="text-red-600 mr-2" />
                 <p className="text-red-600 text-sm capitalize font-semibold mb-3">Things are little unstable here, come back later...</p>
               </div>
-            :null}
+              : null}
             {typing ? (
               <div className='flex items-start mb-3'>
                 <Image src={loader} alt='' width={20} />
