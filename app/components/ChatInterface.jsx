@@ -38,6 +38,7 @@ const ChatInterface = () => {
 
   const dispatch = useDispatch();
   const { showcard, query, typing, error, messages, showclearcard, showprompt } = useSelector((state) => state.chat);
+  const renderRef = useRef(false);
   const chatRef = useRef(null);
 
   // Load messages from local storage on component mount
@@ -50,25 +51,21 @@ const ChatInterface = () => {
     //     dispatch(addMessage(message));
     //   });
     // }
-    console.log("Retrieval action starts")
-    const retrievedData = localStorage.getItem('messages');
-    if (retrievedData) {
-      console.log("data retrived")
-      try {
-      console.log("try block execution")
-        const storedMessages = JSON.parse(retrievedData);
-        return () => {
-        console.log("Add messages")
-          // Function to add messages from local storage
-            storedMessages.forEach((data) => {
-              dispatch(setshowCard(false));
-              dispatch(setshowPrompt(false));
-              dispatch(addMessage(data));
-            });
+    if (renderRef.current === false) {
+      const retrievedData = localStorage.getItem('messages');
+      if (retrievedData) {
+        try {
+          const storedMessages = JSON.parse(retrievedData);
+          storedMessages.forEach((data) => {
+            dispatch(setshowCard(false));
+            dispatch(setshowPrompt(false));
+            dispatch(addMessage(data));
+          });
+        } catch (error) {
+          console.error("Failed to parse messages from localStorage:", error);
         }
-      } catch (error) {
-        console.error("Failed to parse messages from localStorage:", error);
       }
+      renderRef.current = true; // Set to true after the effect runs
     }
   }, [dispatch]);
 
@@ -166,7 +163,7 @@ const ChatInterface = () => {
             {error ?
               <div className="flex">
                 <FontAwesomeIcon icon={faBomb} className="text-red-600 mr-2" />
-                <p className="text-red-600 text-sm capitalize font-semibold mb-3">Things are little unstable here, come back later...</p>
+                <p className="text-red-600 text-xs md:text-sm capitalize font-semibold mb-3">Things are little unstable here, come back later...</p>
               </div>
               : null}
             {typing ? (
