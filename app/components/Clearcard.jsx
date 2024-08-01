@@ -15,13 +15,7 @@ const Clearcard = () => {
   // Function to create a new chat
   const createNewChat = () => {
     localStorage.removeItem('messages'); // Clear messages from local storage
-    dispatch(clearMessage());            // Clear messages from Redux store
-    dispatch(resetQuery());              // Reset the query state
-    dispatch(setTyping(false));          // Set typing state to false
-    dispatch(setError(false));           // Set error state to false
-    dispatch(setshowCard(true));         // Show the initial card component
-    dispatch(setshowPrompt(true));       // Show the prompt options
-    dispatch(setshowClearcard(false));   // Hide the clear card confirmation
+    window.location.reload();
   }
 
   return (

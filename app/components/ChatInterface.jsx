@@ -40,15 +40,6 @@ const ChatInterface = () => {
   const { showcard, query, typing, error, messages, showclearcard, showprompt } = useSelector((state) => state.chat);
   const chatRef = useRef(null);
 
-  // Function to set messages from local storage
-  const setMessages = (storedMessages) => {
-    storedMessages.forEach((data) => {
-      dispatch(setshowCard(false));
-      dispatch(setshowPrompt(false));
-      dispatch(addMessage(data));
-    });
-  };
-
   // Load messages from local storage on component mount
   useEffect(() => {
     // const encryptedMessages = localStorage.getItem("messages");
@@ -62,8 +53,15 @@ const ChatInterface = () => {
     const retrievedData = localStorage.getItem('messages');
     if (retrievedData) {
       try {
-        const setData = JSON.parse(retrievedData);
-        return () => setMessages(setData);
+        const storedMessages = JSON.parse(retrievedData);
+        return () => {
+          // Function to add messages from local storage
+            storedMessages.forEach((data) => {
+              dispatch(setshowCard(false));
+              dispatch(setshowPrompt(false));
+              dispatch(addMessage(data));
+            });
+        }
       } catch (error) {
         console.error("Failed to parse messages from localStorage:", error);
       }
