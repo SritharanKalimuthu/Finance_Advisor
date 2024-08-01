@@ -50,11 +50,15 @@ const ChatInterface = () => {
     //     dispatch(addMessage(message));
     //   });
     // }
+    console.log("Retrieval action starts")
     const retrievedData = localStorage.getItem('messages');
     if (retrievedData) {
+      console.log("data retrived")
       try {
+      console.log("try block execution")
         const storedMessages = JSON.parse(retrievedData);
         return () => {
+        console.log("Add messages")
           // Function to add messages from local storage
             storedMessages.forEach((data) => {
               dispatch(setshowCard(false));
@@ -66,7 +70,7 @@ const ChatInterface = () => {
         console.error("Failed to parse messages from localStorage:", error);
       }
     }
-  }, []);
+  }, [dispatch]);
 
   // Save messages to local storage when `messages` state changes
   useEffect(() => {
