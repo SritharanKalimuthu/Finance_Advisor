@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import cryptoJs from "crypto-js";
 import Image from "next/image";
