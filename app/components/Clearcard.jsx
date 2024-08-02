@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { setshowCard, setTyping, setError, clearMessage, resetQuery, setshowPrompt, setshowClearcard } from '../features/chatSlice';
+import secureLocalStorage from 'react-secure-storage';
+import { setshowClearcard } from '../features/chatSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,7 +15,7 @@ const Clearcard = () => {
 
   // Function to create a new chat
   const createNewChat = () => {
-    localStorage.removeItem('messages'); // Clear messages from local storage
+    secureLocalStorage.removeItem('messages'); // Clear messages from local storage
     window.location.reload();
   }
 

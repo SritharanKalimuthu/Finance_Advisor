@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import cryptoJs from "crypto-js";
+import secureLocalStorage from "react-secure-storage";
 import Image from "next/image";
 import Card from "./Card";
 import PromptList from './PromptList';
@@ -43,22 +43,14 @@ const ChatInterface = () => {
 
   // Load messages from local storage on component mount
   useEffect(() => {
-    // const encryptedMessages = localStorage.getItem("messages");
-    // if (encryptedMessages) {
-    //   const decryptedData = cryptoJs.AES.decrypt(encryptedMessages, enckey).toString(cryptoJs.enc.Utf8);
-    //   const getdata = JSON.parse(decryptedData);
-    //   getdata.forEach(message => {
-    //     dispatch(addMessage(message));
-    //   });
-    // }
     if (renderRef.current === false) {
-      const retrievedData = localStorage.getItem('messages');
+      const retrievedData = secureLocalStorage.getItem('messages');
       if (retrievedData) {
+        dispatch(setshowCard(false));
+        dispatch(setshowPrompt(false));
         try {
           const storedMessages = JSON.parse(retrievedData);
           storedMessages.forEach((data) => {
-            dispatch(setshowCard(false));
-            dispatch(setshowPrompt(false));
             dispatch(addMessage(data));
           });
         } catch (error) {
@@ -71,14 +63,10 @@ const ChatInterface = () => {
 
   // Save messages to local storage when `messages` state changes
   useEffect(() => {
-    // if (messages.length > 0) {
-    // const encryptedMessages = cryptoJs.AES.encrypt(JSON.stringify(messages), enckey).toString();
-    //   localStorage.setItem("messages", encryptedMessages);
-    // }
     if (messages.length > 0) {
       try {
         const getData = JSON.stringify(messages);
-        localStorage.setItem('messages', getData);
+        secureLocalStorage.setItem('messages', getData);
       } catch (error) {
         console.error("Failed to save messages to localStorage:", error);
       }
@@ -172,9 +160,9 @@ const ChatInterface = () => {
                 <p className='ml-1 mt-1 text-xs uppercase text-slate-200 font-semibold'>Finchat-AI is typing...</p>
               </div>
             ) : null}
-            <form className="flex" onSubmit={(e) => { e.preventDefault(); handleUserQuery(query); }}>
+            <form className="flex" >
               <input name="query" className="w-5/6 px-5 py-4 border-none outline-none bg-black rounded-md font-semibold text-sm" placeholder="Ask me something..." value={query} onChange={(e) => { dispatch(setQuery(e.target.value)) }} />
-              <button type="submit"><FontAwesomeIcon icon={faPaperPlane} className="text-slate-400 bg-black p-2 rounded-full ml-4" /></button>
+              <button type="submit" onClick={(e) => { e.preventDefault(); handleUserQuery(query);}}><FontAwesomeIcon icon={faPaperPlane} className="text-slate-400 bg-black p-2 rounded-full ml-4" /></button>
             </form>
           </div>
         </div>
