@@ -10,7 +10,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/SritharanKalimuthu/Finance_Advisor">
-    <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Logo" width="140" height="80">
+    <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Logo" width="160" height="80">
   </a>
 
   <h3 align="center">FinChat AI</h3>
@@ -58,7 +58,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Project Screenshot](https://github.com/SritharanKalimuthu/Finance_Advisor/blob/main/app/assets/screenshot/finchat.png "View Project Review")](https://finance-advisor-o911lkps3-sritharankalimuthus-projects.vercel.app/)
+[![Project Screenshot](https://github.com/SritharanKalimuthu/Finance_Advisor/blob/main/app/assets/screenshot/finchat.png "View Project Review")](https://finance-advisor-fjxcb0dwz-sritharankalimuthus-projects.vercel.app/)
 
 FinChat AI is a personal finance assistant built with Next.js, React, and Redux. It helps users manage their finances by providing expert advice on various finance-related topics.
 
